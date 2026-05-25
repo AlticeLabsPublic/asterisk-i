@@ -1,0 +1,23 @@
+diff '--exclude=*.xml' '--exclude=*.o.d' '--exclude=.project' '--exclude=.cproject' -Naur asterisk-base-11.3.0/apps/wms_inoapi.c asterisk-11.3.0/apps/wms_inoapi.c
+--- asterisk-base-11.3.0/apps/wms_inoapi.c	2026-05-25 14:36:04.559158200 +0000
++++ asterisk-11.3.0/apps/wms_inoapi.c	2026-05-25 15:09:06.270723000 +0000
+@@ -443,6 +443,19 @@
+ 				chan_vars->asr.asr_writetrans = ast_translator_build_path(&rtp_codec, ast_channel_writeformat(chan));
+ 			}
+ 		}
++	} else {
++		if (chan_vars->asr.asr_sock > 2) {
++			if (option_verbose >= 3)
++				ast_verbose(VERBOSE_PREFIX_3 "Stopping ASR and closing socket on ch %03d\n", trs_cmd.ch_index);
++
++			if (chan_vars->asr.asr_writetrans) {
++				ast_translator_free_path(chan_vars->asr.asr_writetrans);
++					chan_vars->asr.asr_writetrans = NULL;
++			}
++
++			close(chan_vars->asr.asr_sock);
++			chan_vars->asr.asr_sock = -1;
++		}
+ 	}
+ }
+ 
