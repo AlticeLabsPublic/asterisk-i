@@ -12,7 +12,7 @@ diff '--exclude=*.xml' '--exclude=*.o.d' '--exclude=.project' '--exclude=.cproje
 +
 +			if (chan_vars->asr.asr_writetrans) {
 +				ast_translator_free_path(chan_vars->asr.asr_writetrans);
-+					chan_vars->asr.asr_writetrans = NULL;
++				chan_vars->asr.asr_writetrans = NULL;
 +			}
 +
 +			close(chan_vars->asr.asr_sock);
